@@ -4,7 +4,7 @@ clusters, as the inter-router connection is done over external routes.
 
 Startup cluster, e.g.:
 
-oc cluster up
+  oc cluster up
 
 Create three projects called cluster-a, cluster-b and cluster-local. For
 each project:
@@ -19,10 +19,10 @@ each project:
 * create deployment, secret and route (using qdr.yaml.a, qdr.yaml.b or
   qdr.yaml.local as appropriate)
 
-This can all be done by running the setup script.
+This can all be done by running the `setup` script.
 
 To verify:
 
-qdstat -b $(oc get service messaging -n cluster-a -o jsonpath='{.spec.clusterIP}') -n
-qdstat -b $(oc get service messaging -n cluster-b -o jsonpath='{.spec.clusterIP}') -n
-qdstat -b $(oc get service messaging -n cluster-local -o jsonpath='{.spec.clusterIP}') -n
+  qdstat -b $(oc get service messaging -n cluster-a -o jsonpath='{.spec.clusterIP}') -n
+  qdstat -b $(oc get service messaging -n cluster-b -o jsonpath='{.spec.clusterIP}') -n
+  qdstat -b $(oc get service messaging -n cluster-local -o jsonpath='{.spec.clusterIP}') -n
