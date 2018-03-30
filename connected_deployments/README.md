@@ -21,7 +21,9 @@ Create three projects called `cluster-a`, `cluster-b` and
 * create deployment, secret and route (using `qdr.yaml.a`,
   `qdr.yaml.b` or `qdr.yaml.local` as appropriate)
 
-This can all be done by running the `setup` script.
+This can all be done by running the `setup` script. NOTE: you will
+have to edit the yaml files to replace the hostname with something
+suitable for your environment.
 
 To verify:
 
@@ -30,3 +32,7 @@ To verify:
   qdstat -b $(oc get service messaging -n cluster-b -o jsonpath='{.spec.clusterIP}') -n
   qdstat -b $(oc get service messaging -n cluster-local -o jsonpath='{.spec.clusterIP}') -n
 ```
+
+The certificates can be generated using the generate_certs script,
+though the subject should be changed to match the hostname used for
+the routes.

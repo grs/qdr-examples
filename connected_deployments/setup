@@ -1,6 +1,6 @@
 for p in a b local; do
   oc new-project cluster-$p
-  oc create secret generic qdr-internal-cert --from-file=tls.crt=internal-certs/tls.crt  --from-file=tls.key=internal-certs/tls.key  --from-file=ca.crt=internal-certs/ca.crt
+  oc create secret generic qdr-internal-cert --from-file=tls.crt=internal-certs/tls.$p.crt  --from-file=tls.key=internal-certs/tls.$p.key  --from-file=ca.crt=internal-certs/ca.crt
   oc create configmap qdr-config --from-file=qdrouterd.conf.template=qdrouterd.conf.$p --dry-run -o yaml | oc apply -f -
   oc apply -f qdr.$p.yaml
 done
