@@ -20,6 +20,15 @@ listener {
 
 listener {
     host: 0.0.0.0
+    port: 8080
+    sslProfile: ssl_details
+    authenticatePeer: no
+    requireSsl: true
+    httpRoot: /usr/share/qpid-dispatch/console/stand-alone/
+}
+
+listener {
+    host: 0.0.0.0
     port: 55672
     role: inter-router
     authenticatePeer: yes

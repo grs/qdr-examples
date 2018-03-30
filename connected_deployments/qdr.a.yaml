@@ -12,6 +12,8 @@ spec:
     name: amqp
   - port: 5671
     name: amqps
+  - port: 8080
+    name: http
   - port: 55672
     name: inter-router
   selector:
@@ -70,3 +72,15 @@ spec:
     targetPort: 55672
   tls:
     termination: passthrough
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: router-console
+spec:
+  host: router-console-cluster-a.192.168.1.90.nip.io
+  to:
+    kind: Service
+    name: messaging
+  port:
+    targetPort: 8080
