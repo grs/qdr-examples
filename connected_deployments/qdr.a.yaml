@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: qdr
-        image: gordons/qdr:latest
+        image: gordons/qdr:ernie-chord
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5672
