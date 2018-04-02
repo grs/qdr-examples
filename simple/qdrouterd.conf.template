@@ -18,6 +18,25 @@ listener {
     requireSsl: true
 }
 
+listener {
+    host: ${HOSTNAME_IP_ADDRESS}
+    port: 55672
+    role: inter-router
+    sslProfile: ssl_internal_details
+    authenticatePeer: no
+}
+
+sslProfile {
+   name: ssl_internal_details
+   certFile: /etc/qpid-dispatch-certs/tls.crt
+   keyFile: /etc/qpid-dispatch-certs/tls.key
+}
+
+connector {
+    host: ${ROUTER_AGENT_SERVICE_HOST}
+    port :${ROUTER_AGENT_SERVICE_PORT}
+}
+
 sslProfile {
    name: ssl_details
    certFile: /etc/qpid-dispatch-certs/tls.crt

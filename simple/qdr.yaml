@@ -13,7 +13,20 @@ spec:
   - port: 55672
     name: inter-router
   selector:
-    type: qdrouterd
+    type: router
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: router-agent
+  labels:
+    app: qdr
+spec:
+  ports:
+  - port: 55672
+    name: amqp
+  selector:
+    type: router-agent
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -26,7 +39,7 @@ spec:
       labels:
         app: qdr
         version: v1
-        type: qdrouterd
+        type: router
     spec:
       containers:
       - name: qdr
@@ -48,3 +61,27 @@ spec:
       - name: qdr-cert
         secret:
           secretName: qdr-cert
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: qdr-agent
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: qdr
+        version: v1
+        type: router-agent
+    spec:
+      containers:
+      - name: qdr-agent
+        image: gordons/qda:latest
+        imagePullPolicy: IfNotPresent
+        command:
+        - node
+        - /opt/app-root/src/bin/ragent.js
+        ports:
+        - containerPort: 55672
+          protocol: TCP
