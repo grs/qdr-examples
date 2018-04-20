@@ -1,0 +1,6 @@
+mkdir -p qdr-cert
+openssl req -new -x509 -batch -nodes -days 11000 -subj "/O=io.enmasse/CN=messaging.myproject.svc.cluster.local" -out qdr-cert/tls.crt -keyout qdr-cert/tls.key
+oc create secret tls qdr-cert --cert=qdr-cert/tls.crt --key=qdr-cert/tls.key
+oc create configmap qdr-config --from-file=qdrouterd.conf.template=qdrouterd.conf.template --dry-run -o yaml | oc apply -f -
+oc apply -f qdr.yaml
+
